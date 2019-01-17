@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/style.css" >
+    <title>GuestFlix - Loading</title>
+	<style>
+	body{
+		overflow:hidden;
+	}
+	.slider, .sliders-list{
+	transition: all 300ms ease-in-out;
+	}
+	</style>
+  </head>
+  <body>
+	<div class="container">	
+		<div class="slide-container-wrapper">	
+			
+			
+
+			<!-- Start Slider Row Movie List -->	
+			<div class="sliders-list" style="top:250px;" id="sliders-list">
+				<div class="slider-row">
+					<h2>TITLE 1</h2>
+					<div class="slider-wrapper">
+						<ul id='slider-1' class="slider" style="width:7300px;">
+							<li class="list-item"><img src="images/poster/poster-1.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-2.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-3.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-4.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-5.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-6.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-7.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-8.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-9.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-10.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-2.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-3.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-4.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-5.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-6.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-7.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-8.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-9.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-10.jpg" /></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- start slider row -->
+				<div class="slider-row" style="top:550px;">
+					<h2>TITLE 2</h2>
+					<div class="slider-wrapper">
+						<ul id="slider-2" class="slider" style="width:7300px;">
+							<li class="list-item"><img src="images/poster/poster-1.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-2.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-3.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-4.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-5.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-6.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-7.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-8.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-9.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-10.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-2.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-3.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-4.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-5.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-6.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-7.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-8.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-9.jpg" /></li>
+							<li class="list-item"><img src="images/poster/poster-10.jpg" /></li>
+						</ul>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+			<!-- End Slider Row Movie List -->	
+
+		</div>
+		
+		<!-- Start Right and Bottom Shaddow -->
+		<div class="home-right-poster"></div>
+		<div class="home-bottom-poster"></div>
+		<!-- End Right and Bottom Shaddow -->
+	</div>
+	<script>
+	var slider = function(){
+		var slider = null;
+		var sliderlist = null;
+		var listCount = null;
+		var moving = null;
+		var listWidth = 270;
+		var listHeight = 500;
+		var activepos = null;
+		var slideX = 0;
+		var slideY = 0;
+		var sliderRow = 1;
+		var mainWrapper = null;
+		var totalRow = null;
+		this.rowSaveValue = new Array();
+		
+		this.init = function(){
+			mainWrapper = document.getElementById("sliders-list");
+			totalRow = mainWrapper.getElementsByClassName('slider-row');
+			this.changeSliderRow('slider-'+sliderRow);
+			this.activeFirstList(activepos);
+		}		
+		
+		this.changeSliderRow = function(_sliderRow){		
+			slider = document.getElementById(_sliderRow);	
+			sliderlist = slider.getElementsByTagName('li');
+			listCount = sliderlist.length;
+			
+			this.findActivePosition();
+			
+		}
+		
+		this.findActivePosition = function(){
+			for(var i = 0;i < listCount; i++){
+				if(sliderlist[i].getElementsByClassName('active')){
+					activepos = i;
+					return;
+				}
+			}
+		}
+		
+		/* transition events */				
+		this.whichTransitionEvent = function(){
+			var t,
+				el = document.createElement("fakeelement");
+
+			var transitions = {
+				"transition"      : "transitionend",
+				"OTransition"     : "oTransitionEnd",
+				"MozTransition"   : "transitionend",
+				"WebkitTransition": "webkitTransitionEnd"
+			}
+
+			for (t in transitions){
+				if (el.style[t] !== undefined){
+					return transitions[t];
+				}
+			}
+		}
+
+		this.activeFirstList = function(_pos){
+			sliderlist[_pos].classList.add('active');
+		}	
+		
+		this.activeList = function(_value){
+			if(_value == "+"){	
+				if(activepos >= (listCount-1))
+				return;
+				slideX -= listWidth;
+				slider.style.WebkitTransform = 'translate3d('+slideX+'px, 0, 0)';
+				sliderlist[activepos].classList.remove('active');
+				activepos++;
+								
+				var transitionEvent = this.whichTransitionEvent();				
+				slider.addEventListener(transitionEvent, transitionEndCallback);
+
+				function transitionEndCallback(event) {
+					slider.removeEventListener(transitionEvent, transitionEndCallback);
+					sliderlist[activepos].classList.add('active');
+				}
+
+			}
+			if(_value == "-"){
+				if(activepos <= 0)
+				return;
+				slideX += listWidth;
+				slider.style.WebkitTransform = 'translate3d('+slideX+'px, 0, 0)';
+				
+				sliderlist[activepos].classList.remove('active');
+				activepos--;
+				
+				
+				var transitionEvent = this.whichTransitionEvent();
+				slider.addEventListener(transitionEvent, transitionEndCallback);
+
+
+				function transitionEndCallback(event) {
+					slider.removeEventListener(transitionEvent, transitionEndCallback);
+					sliderlist[activepos].classList.add('active');
+				}
+				
+			}
+		}
+		
+				
+		this.savePositionRow = function(){	
+			this.rowSaveValue['slider-'+sliderRow] = {
+				"liActive":activepos,
+				"XposValue":slideX
+			}
+		}
+		
+		this.setRowPosition = function(){	
+			if(this.rowSaveValue.hasOwnProperty('slider-'+sliderRow)){
+				
+				activepos = this.rowSaveValue['slider-'+sliderRow].liActive;
+				sliderlist[activepos].classList.add('active');
+				
+				slideX = this.rowSaveValue['slider-'+sliderRow].XposValue;
+				slider.style.WebkitTransform = 'translate3d('+slideX+'px, 0, 0)';
+			}else{
+				activepos = 0;
+				sliderlist[activepos].classList.add('active');
+				
+				slideX = 0;
+				slider.style.WebkitTransform = 'translate3d('+slideX+'px, 0, 0)';
+			
+			}
+		}
+		
+		this.rightMove = function(){
+			this.activeList("+");
+			this.savePositionRow();			
+		}
+		
+		this.leftMove = function(){
+			this.activeList("-");
+			this.savePositionRow();
+		}
+		
+				
+		this.downSlideRow = function(){
+			
+			if(sliderRow == totalRow.length)			
+			return;
+			
+			sliderlist[activepos].classList.remove('active');
+			
+			sliderRow++;
+			this.changeSliderRow('slider-'+sliderRow);
+			
+			this.setRowPosition();
+			
+			
+			slideY -= listHeight;
+			mainWrapper.style.WebkitTransform = 'translate3d(0, '+slideY+'px, 0)';
+		};
+		
+				
+		this.upSlideRow = function(){
+			if(sliderRow == 1)			
+			return;
+			
+			
+			sliderlist[activepos].classList.remove('active');
+			sliderRow--;
+			
+			this.changeSliderRow('slider-'+sliderRow);
+			this.setRowPosition();	
+				
+				
+			slideY += listHeight;
+			mainWrapper.style.WebkitTransform = 'translate3d(0, '+slideY+'px, 0)';
+		};
+		
+		this.keyPress = function(event){
+			var key = event.which || event.keyCode; 
+			switch(key){
+			case 37:
+			this.leftMove();
+			
+			return;
+			
+			case 39:
+				this.rightMove();
+			return;
+			
+			case 38:
+				this.upSlideRow();
+			return;
+			
+			case 40:
+				this.downSlideRow();
+			return;
+			
+			default:
+			return;
+			}
+		}
+		
+	}	
+	var imageGallery = new slider();
+	imageGallery.init();
+	
+	document.onkeydown = keyevent;
+	
+	function keyevent(event){
+		imageGallery.keyPress(event);
+	}
+	</script>
+  </body>
+</html>
